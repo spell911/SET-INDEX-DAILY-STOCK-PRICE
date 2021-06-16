@@ -3,15 +3,18 @@ Create database and collection before insert to data lake,
 In case we use mongoDB.
 
 """
+from constants import CLIENT, DATABASE, COLLECTION
+
 import pymongo
+
 
 class MongoDB():
 
     def __init__(self, client=None, database=None, collection=None):
         # create class constructor
-        self.client = pymongo.MongoClient("mongodb://root:root@localhost:27017/")
-        self.database = 'daily_stock_price'
-        self.collection = 'set_index'
+        self.client = pymongo.MongoClient(CLIENT)
+        self.database = DATABASE
+        self.collection = COLLECTION
 
     def create_database(self):
         dblist = self.client.list_database_names()
@@ -40,6 +43,11 @@ class MongoDB():
         _db = _client[self.database]
         _col = _db[self.collection]
 
-        x = _col.insert_one(data) 
+        x = _col.insert_one(data)
 
         return x
+
+
+if __name__ == "__main__":
+    mongo = MongoDB()
+    mongo.create_database()
