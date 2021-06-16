@@ -4,8 +4,10 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 from datetime import date
 from mongo_db import MongoDB
+from constants import URL
 
 mongo = MongoDB()
+
 
 class SetIndexSpider(scrapy.Spider):
     """
@@ -20,7 +22,7 @@ class SetIndexSpider(scrapy.Spider):
         Start request website.
 
         """
-        yield scrapy.Request(url='https://marketdata.set.or.th/mkt/marketsummary.do', callback=self.parse_table)
+        yield scrapy.Request(url=URL, callback=self.parse_table)
     # parse method
 
     def parse_table(self, response):
@@ -46,7 +48,7 @@ class SetIndexSpider(scrapy.Spider):
                 'value': row.xpath('td[8]//text()').extract_first()
             }
             obj_id = mongo.insert_one(stock)
-            print('obj_id : {}'.format(obj_id))
+            print('obj_id : {}'.format(str(obj_id)))
             pass
 
 
