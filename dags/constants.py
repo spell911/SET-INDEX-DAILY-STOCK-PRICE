@@ -1,5 +1,5 @@
 # mongodb
-CLIENT = "mongodb://root:root@172.22.0.5:27017/"
+CLIENT = "mongodb://root:root@172.18.0.5:27017/"
 DATABASE = 'daily_stock_price'
 COLLECTION = 'set_index'
 # scrapy
